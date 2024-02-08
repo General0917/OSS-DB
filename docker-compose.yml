@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  pgsql_db:
+    # build: .でdocker-compose.ymlと同じフォルダにDockerfileがあることを示す
+    build: .
+    container_name: ${CONTAINER_NAME}
+    hostname: ${HOSTNAME}
+    ports:
+      - 5432:5432
+    volumes:
+      - db-store:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${USER_NAME}
+      POSTGRES_PASSWORD: ${USER_PASS}
+volumes:
+  db-store:
