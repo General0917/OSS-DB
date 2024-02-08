@@ -46,20 +46,21 @@ volumes:
 ■ 設定変更について
 ローカル環境であれば「Dockerfile」は作成する必要はないが、「Dockerfile」を使用する場合は、「docker-compose.yml」は以下のように設定する必要がある
 ```
-version: '3'
+version: '3.9'
 
 services:
-  db:
+  pgsql_db:
     # build: .でdocker-compose.ymlと同じフォルダにDockerfileがあることを示す
     build: .
-    container_name: postgres_pta
+    container_name: ${CONTAINER_NAME}
+    hostname: ${HOSTNAME}
     ports:
       - 5432:5432
     volumes:
       - db-store:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: 'user'
-      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_USER: ${USER_NAME}
+      POSTGRES_PASSWORD: ${USER_PASS}
 volumes:
   db-store:
 ```
@@ -75,7 +76,7 @@ Dockerfileを使用する理由は以下などがある
 
 ■ Dockerfileの作成方法
 ```
-FROM postgres:14
+FROM postgres:15.2
 
 # Time ZoneAc
 ENV TZ Asia/Tokyo
