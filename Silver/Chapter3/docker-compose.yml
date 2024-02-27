@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  linux:
+    build: .
+    # image: ubuntu:latest
+    # image: centos:latest
+    # image: centos:centos7
+    command: /bin/bash
+    tty: true
